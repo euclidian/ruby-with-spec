@@ -1,0 +1,48 @@
+version: '2'
+services: 
+    db:
+        image: mysql:5.7
+        volumes: 
+            - ./data:/var/lib/data
+        environment: 
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: mydb
+        restart: unless-stopped
+        ports: 
+            - 12307:3306 
+    db_test:
+        image: mysql:5.7
+        environment: 
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: mydb
+        ports: 
+          - 12305:3306
+
+    web:
+        build: 
+            context: docker
+            dockerfile: Dockerfile
+        env_file:
+            - simple.env 
+        volumes: 
+            - ../project:/home/web/project
+        links:
+            - db:db
+        ports: 
+            - 12001:8020 
+    
+    web_test:
+      build: 
+          context: docker
+          dockerfile: Dockerfile-dev
+      env_file: 
+          - simple-test.env
+      volumes: 
+          - ../project:/home/web/project
+      links:             
+          - db_test:db_test
+      command: rdebug-ide --debug --host 0.0.0.0 --port 1234 --dispatcher-port 26163 -- /usr/local/bin/bundle exec rspec spec/app/controllers/partner/
+      ports:
+        - "60002:1234"
+        - "60003:4000"
+        - "60004:26163"

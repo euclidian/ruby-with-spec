@@ -1,0 +1,65 @@
+source 'https://rubygems.org'
+
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
+gem 'aasm'
+gem 'activerecord'
+gem 'activesupport'
+gem 'bunny'
+gem 'diplomat'
+gem 'dogstatsd-ruby'
+gem 'dotenv'
+gem 'google-cloud-storage', tag: 'v1.21.0'
+gem 'honeybadger'
+gem 'http-accept'
+gem 'imgkit'
+gem 'json-schema'
+gem 'jwt'
+gem 'lhm'
+gem 'logstash-logger'
+gem 'mws_api_client', git: 'git@git.gitlab.cloud.bukalapak.io:bukalapak/mws-api-ruby-client.git', tag: 'v0.1.7'
+gem 'mysql2'
+gem 'neo_client', git: 'git@git.gitlab.cloud.bukalapak.io:bukalapak/neo-client-rb.git', tag: 'v0.2.0'
+gem 'phonelib'
+gem 'prometheus-client'
+gem 'protor'
+gem 'pry'
+gem 'puma', '4.3.8'
+gem 'puma-plugin-statsd'
+gem 'rack-proxy'
+gem 'racksh'
+gem 'rake'
+gem 'redis'
+gem 'require_all', '<2.0.0'
+gem 'resilient'
+gem 'rest-client'
+gem 'sinatra'
+gem 'sinatra-activerecord'
+gem 'sinatra-contrib'
+gem 'sinatra-cross_origin'
+gem 'toggleable', git: 'https://github.com/bukalapak/toggleable.git', branch: 'palanca-client-stable'
+gem 'wkhtmltoimage-binary', '0.12.5'
+gem 'faraday'
+gem 'net-http-persistent', '~> 4.0'
+
+group :development, :test do
+  gem 'byebug'
+  gem 'coveralls_reborn', '~> 0.16.0', require: false
+  gem 'factory_bot'
+  gem 'foreman', require: false
+  gem 'forgery'
+  gem 'fuubar'
+  gem 'mock_redis'
+  gem 'rack-test'
+  gem 'rspec'
+  gem 'rspec-json_expectations'
+  gem 'rubocop', require: false
+  gem 'rufo'
+  gem 'simplecov', require: false
+  gem 'simplecov-cobertura'
+  gem 'webmock'
+  gem 'pry-nav'
+end

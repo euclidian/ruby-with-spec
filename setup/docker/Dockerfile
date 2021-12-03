@@ -1,0 +1,39 @@
+FROM ruby:2.4.10-alpine3.10
+
+ARG SSH_KEY
+ENV SSH_KEY=$SSH_KEY
+
+# Make ssh dir
+RUN mkdir /root/.ssh/
+
+# Create id_rsa from string arg, and set permissions
+# Somehow in my mac, the newline is not respected
+RUN echo "-----BEGIN RSA PRIVATE KEY-----" > /root/.ssh/id_rsa
+RUN echo "$SSH_KEY" >> /root/.ssh/id_rsa
+RUN echo "-----END RSA PRIVATE KEY-----"  >> /root/.ssh/id_rsa
+RUN chmod 600 /root/.ssh/id_rsa
+
+# Create known_hosts
+RUN touch /root/.ssh/known_hosts
+
+RUN apk --update add --no-cache --virtual build_deps \
+    build-base ruby-dev libc-dev linux-headers git \
+    mysql-dev tzdata openssh
+RUN apk add --no-cache libstdc++ libx11 libxrender libxext \
+    libssl1.1 ca-certificates fontconfig freetype \
+    ttf-dejavu ttf-droid ttf-freefont ttf-liberation \
+    ttf-ubuntu-font-family
+
+# Add git providers to known_hosts
+RUN ssh-keyscan git.gitlab.cloud.bukalapak.io >> /root/.ssh/known_hosts
+
+RUN gem install bundler -v 1.17.3
+RUN gem install foreman
+
+ADD Gemfile .
+ADD Gemfile.lock .
+
+RUN bundle install
+
+WORKDIR /home/web/project
+CMD ["foreman", "start"]

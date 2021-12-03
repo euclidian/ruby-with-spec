@@ -1,0 +1,5 @@
+setup/data
+setup/docker/Gemfile*
+setup/docker/wkhtmltoimage
+.rubocop.yml
+
