@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "run docker test",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "-C",
+        "setup",
+        "web_test"
+      ]
+    }
+  ]
+}

@@ -9,8 +9,8 @@ build:
 	@echo "-----------------------------------------------------------------"
 	@rm -rf docker/Gemfile*
 	@cp ../project/Gemfile* docker/
-	@docker-compose -p $(PROJECT_ID) build --build-arg SSH_KEY="$(shell sed '1d;$$d' ~/.ssh/id_rsa)" web
-	@docker-compose -p $(PROJECT_ID) build --build-arg SSH_KEY="$(shell sed '1d;$$d' ~/.ssh/id_rsa)" web_test
+	@docker-compose -p $(PROJECT_ID) build web
+	@docker-compose -p $(PROJECT_ID) build web_test
 
 web: 
 	@echo "------------------------------------------------------------------"

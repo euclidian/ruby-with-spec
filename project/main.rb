@@ -6,7 +6,7 @@ Bundler.require(:default, ENV['RACK_ENV'])
 
 require './lib/simple'
 
-$flintstone = Simple.new
+$simple = Simple.new
 
 require_all './lib/simple/**/*.rb'
 require_all './app/**/*.rb'

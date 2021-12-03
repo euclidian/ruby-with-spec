@@ -1,0 +1,16 @@
+{
+    // I want my default to be 4, but JavaScript/JSON to be 2
+    "editor.tabSize": 2,
+    "[ruby]": {
+      "editor.tabSize": 2
+    },
+    "[json]": {
+      "editor.tabSize": 2
+    },
+    "editor.detectIndentation": false,
+  
+    // This one forces the tab to be **space**
+    "editor.insertSpaces": true,
+    "ruby.rubocop.configFilePath": "~/.rubocop.yml",
+  
+  }

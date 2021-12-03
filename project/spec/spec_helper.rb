@@ -3,7 +3,6 @@ require 'webmock/rspec'
 
 Dotenv.load
 ENV['RACK_ENV'] = 'test'
-ENV['FLINTSTONE_PATH'] = "#{__dir__}/.."
 Bundler.require(:default, :test)
 
 require './lib/simple'
@@ -32,12 +31,6 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
-  config.around(:each) do |example|
-    ActiveRecord::Base.transaction do
-      example.run
-      raise ActiveRecord::Rollback
-    end
-  end
   config.order = :random
   config.include FactoryBot::Syntax::Methods
   config.before(:suite) do
