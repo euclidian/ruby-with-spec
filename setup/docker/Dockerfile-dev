@@ -1,16 +1,9 @@
-FROM ruby:2.4.10-alpine3.10
+FROM ruby:2.5
 
-RUN apk --update add --no-cache --virtual build_deps \
-    build-base ruby-dev libc-dev linux-headers git \
-    mysql-dev tzdata openssh
-RUN apk add --no-cache libstdc++ libx11 libxrender libxext \
-    libssl1.1 ca-certificates fontconfig freetype \
-    ttf-dejavu ttf-droid ttf-freefont ttf-liberation \
-    ttf-ubuntu-font-family
-
+RUN apt-get update
 RUN gem install bundler -v 1.17.3
 RUN gem install foreman
-RUN gem install ruby-debug-ide
+RUN gem install ruby-debug-ide -v 0.7.3
 
 ADD Gemfile .
 ADD Gemfile.lock .
